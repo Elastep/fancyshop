@@ -3,11 +3,29 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "rimraf": "rimraf",
+    "changelog": "standard-changelog",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "start:hmr": "ng serve --hmr",
+    "start:aot": "ng serve --aot",
+    "start:prod": "ng serve -- --prod",
+    "start:prod:aot": "ng serve -- --prod --aot",
+    "build": "npm run clean:dist && ng build",
+    "build:prod": "npm run build -- --prod",
+    "build:prod:bo": "npm run build -- --prod --build-optimizer",
+    "build:prod2": "npm run ng build -- --aot=true --environment=prod --output-hashing=all --sourcemaps=false --extract-css=true",
+    "build:prod:aot": "npm run build:prod -- --aot=true",
+    "build:prod:noaot": "npm run build:prod -- --aot=false",
+    "build:ci": "npm run build:prod && npm run build:prod:aot",
+    "test": "ng test -sr",
+    "test:coverage": "npm run clean:coverage && ng test -sr -cc",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint:styles": "stylelint ./src/app/**/*.scss",
+    "lint:ci": "npm run lint && npm run lint:styles",
+    "pree2e": "webdriver-manager update --standalone false --gecko false",
+    "e2e": "ng e2e",
+    "clean:dist": "npm run rimraf -- dist",
+    "clean:coverage": "npm run rimraf -- coverage"
   },
   "private": true,
   "dependencies": {
@@ -44,5 +62,10 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Elastep/fancyshop"
   }
+  
 }

@@ -1,0 +1,16 @@
+.formclass {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .inputdollars {
+    width: 100%;
+  }
+
+
+  .fancyshop-logo {
+    background-image: url('https://scontent-iad3-1.cdninstagram.com/vp/f75fc9ac51ef515d4355a14ccad9c4e5/5B8EA78B/t51.2885-19/s150x150/30930200_208981556493310_5107124312930779136_n.jpg');
+    background-size: cover;
+  }
+  

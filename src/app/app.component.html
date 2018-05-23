@@ -8,78 +8,150 @@
   <a href="https://www.instagram.com/fancyshop.od/">Instagram</a>
 </div> -->
 
-
-  <mat-card>
-    <mat-card-header>
+<mat-tab-group>
+  <mat-tab label="Подсчет">
+    <mat-card>
+      <mat-card-header>
         <div mat-card-avatar class="fancyshop-logo"></div>
-      <mat-card-title>Fancy Shop</mat-card-title>
-      <mat-card-subtitle>Магазинный помощник</mat-card-subtitle>
-    </mat-card-header>
-    <mat-form-field class="inputdollars">
-      <input matInput placeholder="Цена в магазине" [(ngModel)]="shopPrice" type="number" (keyup)="onShopPriceChange($event)">
-      Это {{shopPrice * dollarRate}} UAH
-    </mat-form-field>
+        <mat-card-title>Fancy Shop</mat-card-title>
+        <mat-card-subtitle>Магазинный помощник</mat-card-subtitle>
+      </mat-card-header>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Цена в магазине" [(ngModel)]="shopPrice" type="number" (keyup)="onShopPriceChange($event)">
+            </mat-form-field>
 
-    <mat-form-field class="inputdollars">
-      <input matInput placeholder="Налог" [(ngModel)]="tax" type="number" (keyup)="onTaxChange($event)">
-    </mat-form-field>
+          </td>
+          <td>
+            Это {{shopPrice * dollarRate}} UAH
+          </td>
+        </tr>
+      </table>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Налог" [(ngModel)]="tax" type="number" (keyup)="onTaxChange($event)">
+      </mat-form-field>
 
-    <mat-form-field class="inputdollars">
-      <input matInput placeholder="Стоимость пересылки" [(ngModel)]="packageCost" type="number" (keyup)="onPackageCostChange($event)">
-    </mat-form-field>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Стоимость пересылки" [(ngModel)]="packageCost" type="number" (keyup)="onPackageCostChange($event)">
+      </mat-form-field>
 
-    <mat-form-field class="inputdollars">
-      <input matInput placeholder="Процент за перевод" [(ngModel)]="transferPerc" type="number" (keyup)="onTransferPercChange($event)">
-    </mat-form-field>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Процент за перевод" [(ngModel)]="transferPerc" type="number" (keyup)="onTransferPercChange($event)">
+      </mat-form-field>
 
-    <mat-form-field class="inputdollars">
+      <mat-form-field class="inputdollars">
         <input matInput placeholder="Курс доллара" [(ngModel)]="dollarRate" type="number" (keyup)="onDollarRateChange($event)">
-    </mat-form-field>
+      </mat-form-field>
 
-   <table>
-     <tr>
-       <td>Чтобы выйти в ноль цена должна быть:</td>
-     </tr>
-     <tr>
-        <td>{{getZeroProfitPriceUSD()}} USD или {{getZeroProfitPriceUAH()}} UAH</td>
-      </tr>
-   </table>
-      
-<br>
+      <table>
+        <tr>
+          <td>Чтобы выйти в ноль цена должна быть:</td>
+        </tr>
+        <tr>
+          <td>{{getZeroProfitPriceUSD()}} USD или {{getZeroProfitPriceUAH()}} UAH</td>
+        </tr>
+      </table>
 
-    <mat-form-field class="inputdollars">
-        <input matInput placeholder="Цена продажи (UAH)" [(ngModel)]="iWantPriceUAH"  type="number" (keyup)="onIWantPriceChanged($event)">
-        Это {{getDolarPriceFromIwantPrice()}} долларов если что
-    </mat-form-field>
+      <br>
 
-    <table>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Цена продажи (UAH)" [(ngModel)]="iWantPriceUAH" type="number" (keyup)="onIWantPriceChanged($event)"> Это {{getDolarPriceFromIwantPrice()}} долларов если что
+      </mat-form-field>
+
+      <table>
         <tr>
           <td>Прибыль:</td>
         </tr>
         <tr>
-           <td>
-              <mat-form-field class="inputdollars">
-                  <input matInput placeholder="(UAH)" [(ngModel)]="iWantProfitUAH"  type="number" (keyup)="onIWantProfitUAHChanged($event)">
-              </mat-form-field>
-           </td>
-           <td>
-              <mat-form-field class="inputdollars">
-                  <input matInput placeholder="(USD)" [(ngModel)]="iWantProfitUSD"  type="number" (keyup)="onIWantProfitUSDChanged($event)">
-                 
-              </mat-form-field>
-           </td>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="(UAH)" [(ngModel)]="iWantProfitUAH" type="number" (keyup)="onIWantProfitUAHChanged($event)">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="(USD)" [(ngModel)]="iWantProfitUSD" type="number" (keyup)="onIWantProfitUSDChanged($event)">
+            </mat-form-field>
+          </td>
         </tr>
       </table>
 
 
       <table>
-          <tr>
-            <td>С учетом пересылки половина:</td>
-          </tr>
-          <tr>
-             <td><b>{{this.roundFin(getProfitUSD()/2 * (1 - this.transferPerc))}} USD</b></td>
-             <td><b>{{this.roundFin(getProfitUAH()/2 * (1 - this.transferPerc))}} UAH</b></td>
-          </tr>
-        </table>
+        <tr>
+          <td>С учетом пересылки половина:</td>
+        </tr>
+        <tr>
+          <td>
+            <b>{{this.roundFin(getProfitUSD()/2 * (1 - this.transferPerc))}} USD</b>
+          </td>
+          <td>
+            <b>{{this.roundFin(getProfitUAH()/2 * (1 - this.transferPerc))}} UAH</b>
+          </td>
+        </tr>
+      </table>
 
-  </mat-card>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Скриншот">
+    <mat-card>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Название вещи">
+      </mat-form-field>
+      <mat-form-field class="inputdollars">
+        <input matInput placeholder="Кому продано">
+      </mat-form-field>
+
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Цена в магазине" [(ngModel)]="shopPrice" type="number" (keyup)="onShopPriceChange($event)">
+            </mat-form-field>
+
+          </td>
+          <td>
+            Это {{shopPrice * dollarRate}} UAH
+          </td>
+        </tr>
+
+      </table>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Продано за (UAH)" [(ngModel)]="iWantPriceUAH" (keyup)="onIWantPriceChanged($event)">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Продано за (USD)" readonly [value]="roundFin(iWantPriceUAH / dollarRate)">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Ожидаемая прибыль (UAH)" readonly [value]="iWantProfitUAH">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="inputdollars">
+              <input matInput placeholder="Ожидаемая прибыль  (USD)" readonly [value]="iWantProfitUSD">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <img [src]="selectedImage" alt="Фоточка" style="width: 100%" />
+      <br>
+      <input type="file" accept="image/*" (change)="onScreenshotCaptured($event)">
+
+
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

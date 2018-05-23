@@ -25,6 +25,7 @@ export class AppComponent {
   dollarPrice = this.getDolarPriceFromIwantPrice();
   iWantProfitUAH = 0;
   iWantProfitUSD = 0;
+  selectedImage = "";
   
   roundFin(n: number) {
     n = n * 100;
@@ -38,7 +39,6 @@ export class AppComponent {
   }
   
   updateAfterShopPriceChange() {
-    console.log("updateAfterShopPriceChange");
     this.dollarPrice = this.getDolarPriceFromIwantPrice();
     this.iWantPriceUAH = this.roundFin(this.getZeroProfitPriceUAH()* 1.5);
     this.iWantProfitUAH = this.roundFin(this.getProfitUAH());
@@ -46,26 +46,22 @@ export class AppComponent {
   }
    
   onIWantPriceChanged(e) {
-    console.log("onIWantPriceChanged");
     this.dollarPrice = this.getDolarPriceFromIwantPrice();
     this.iWantProfitUAH = this.roundFin(this.getProfitUAH());
     this.iWantProfitUSD = this.roundFin(this.getProfitUSD());
   }
 
   onShopPriceChange(e) {
-    console.log("onShopPriceChange");
     this.updateAfterShopPriceChange();
   }
 
 
   onIWantProfitUAHChanged(e) {
-    console.log("onIWantProfitUAHChanged");
     this.iWantPriceUAH = this.roundFin(this.getZeroProfitPriceUAH() + this.iWantProfitUAH);
     this.iWantProfitUSD = this.roundFin(this.iWantProfitUAH / this.dollarRate);
   } 
 
   onIWantProfitUSDChanged(e) {
-    console.log("onIWantProfitUSDChanged");
     this.iWantPriceUAH = this.roundFin(this.getZeroProfitPriceUAH() + this.iWantProfitUSD * this.dollarRate);
     this.iWantProfitUAH = this.roundFin(this.iWantProfitUSD * this.dollarRate);
   }
@@ -84,6 +80,17 @@ export class AppComponent {
 
   onDollarRateChange(e) {
     this.updateAfterShopPriceChange();
+  }
+
+
+  onScreenshotCaptured(e) {
+    var self = this;
+    this.selectedImage = e.srcElement.files[0].name;
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(e.srcElement.files[0]);
+    oFReader.onload = function (oFREvent:any) {
+      self.selectedImage = oFREvent.target.result;
+    };
   }
 
 
